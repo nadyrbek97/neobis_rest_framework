@@ -15,16 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from courses import views
-from rest_framework.urlpatterns import format_suffix_patterns
-from django.conf.urls import url
 
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('course/', views.CourseList.as_view()),
-    url(r'^course/(?P<pk>[0-9]+)/$',views.CourseDetail.as_view())
+    path('',include('courses.urls')),
 ]
-
-urlpatterns = format_suffix_patterns(urlpatterns)

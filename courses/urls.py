@@ -1,13 +1,14 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
+from rest_framework import routers
+from . import views
 
-app_name = "courses"
-
+router = routers.DefaultRouter()
+router.register('courses',views.CourseView)
+router.register('contacts', views.ContactView)
+router.register('branches', views.BranchView)
+router.register('category', views.CategoryView)
 urlpatterns = [
-    path('admin/', admin.site.urls),
-
-    #url(r'^couses/')
-    #path('', views.SnippetListView.as_view(), name='list'),
-    #path('<int:pk>/', views.SnippetDetailView.as_view(), name='detail')
+    path('', include(router.urls))
 ]
