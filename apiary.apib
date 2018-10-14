@@ -3,37 +3,51 @@ HOST: http://polls.apiblueprint.org/
 
 # nadyrneobis
 
-Polls is a simple API allowing consumers to view polls and vote in them.
+This is a test api documetation 
 
-## Questions Collection [/questions]
+## Course [/courses]
 
-### List All Questions [GET]
+### List All Courses [GET]
 
 + Response 200 (application/json)
 
         [
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
+                "id": 1,
+                "title": "ENglish Zone",
+                "description": "This is English language course for students and pupils in Bishkek ...",
+                "category": "Language Course",
+                "logo": "english.zone.img",
+                "contacts": [
                     {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
+                        "type": "PHONE",
+                        "value": "0555025045"
+                    },
+                    {
+                        "type": "FACEBOOK",
+                        "value": "english.zone"
+                    },
+                    {
+                        "type": "EMAIL",
+                        "value": "english.zone@example.com"
+                    }
+                ],
+                "branches": [
+                    {
+                        "address": "Biskek Belinka str.",
+                        "latitude": "1221.1232",
+                        "longitude": "5464.4564"
+                    },
+                    {
+                        "address": "Bishkek Gorkiy str.",
+                        "latitude": "2212.1223",
+                        "longitude": "3453.3453"
                     }
                 ]
             }
         ]
 
-### Create a New Question [POST]
+### Create a New Course [POST]
 
 You may create your own question using this action. It takes a JSON
 object containing a question and a collection of answers in the
@@ -55,7 +69,7 @@ form of choices.
 
     + Headers
 
-            Location: /questions/2
+            Location: /courses/2
 
     + Body
 
