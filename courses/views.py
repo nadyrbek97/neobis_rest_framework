@@ -1,23 +1,13 @@
-from .models import Course , Contact, Branch, Category
-from rest_framework import viewsets
-from courses.serializers import CourseSerializer,ContactSerializer, BranchSerializer, CategorySerializer
+from .models import Course, Contact, Branch, Category
+from courses.serializers import CourseSerializer, ContactSerializer, BranchSerializer, CategorySerializer
+from rest_framework import generics
 
 
-
-
-class CourseView(viewsets.ModelViewSet):
+class CourseList(generics.ListCreateAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
 
-class CategoryView(viewsets.ModelViewSet):
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
 
-class ContactView(viewsets.ModelViewSet):
-    queryset = Contact.objects.all()
-    serializer_class = ContactSerializer
-
-
-class BranchView(viewsets.ModelViewSet):
-    queryset = Branch.objects.all()
-    serializer_class = BranchSerializer
+class CourseDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Course
+    serializer_class = CourseSerializer

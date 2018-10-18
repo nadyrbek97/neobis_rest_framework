@@ -1,14 +1,10 @@
-from django.contrib import admin
-from django.urls import path, include
-from django.conf.urls import url
-from rest_framework import routers
-from . import views
+from django.urls import path
+from rest_framework.urlpatterns import format_suffix_patterns
+from courses import views
 
-router = routers.DefaultRouter()
-router.register('courses',views.CourseView)
-router.register('contacts', views.ContactView)
-router.register('branches', views.BranchView)
-router.register('category', views.CategoryView)
 urlpatterns = [
-    path('', include(router.urls))
+    path('courses/', views.CourseList.as_view()),
+    path('courses/<int:pk>/', views.CourseDetail.as_view()),
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)

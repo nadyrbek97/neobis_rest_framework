@@ -1,48 +1,61 @@
+from .models import Category, Course, Branch, Contact
 from rest_framework import serializers
-from .models import *
 
-class CategorySerializer(serializers.Serializer):
-    category_name = serializers.CharField( max_length=100)
+
+class BranchSerializer(serializers.ModelSerializer):
+
     class Meta:
-        model = Category
-        fields = ('category_name', 'category_image')
+        model = Branch
+        fields = ('latitude', 'longitude', 'address')
 
 
-class ContactSerializer(serializers.HyperlinkedModelSerializer):
-    contact_type = serializers.SerializerMethodField()
+class ContactSerializer(serializers.ModelSerializer):
+    type = serializers.SerializerMethodField(required=False)
 
     class Meta:
         model = Contact
-        fields = ('contact_type', 'contact_value')
+        fields = ('type', 'value')
 
-    #for getting value of choices
-    def get_contact_type(self,obj):
-        return obj.get_contact_type_display()
+    def get_type(self, obj):
+        return obj.get_type_display()
 
-class BranchSerializer(serializers.ModelSerializer):
+
+class CategorySerializer(serializers.ModelSerializer):
+    name = serializers.CharField(max_length=200)
+
+    image_path = serializers.CharField(max_length=100, required=False)
+
     class Meta:
-        model = Branch
-        fields = ('address', 'latitude', 'longitude')
+        model = Category
+        fields = ('name', 'image_path')
 
-class CourseSerializer(serializers.HyperlinkedModelSerializer):
-    id = serializers.IntegerField
-    title = serializers.CharField(max_length=100)
-    description = serializers.CharField(max_length=1000)
-    category = CategorySerializer(Category.category_name)
-    logo = serializers.CharField(max_length=1000)
-    course_contacts = serializers.SerializerMethodField("get_contacts")
-    course_branches = serializers.SerializerMethodField("get_branches")
+
+class CourseSerializer(serializers.ModelSerializer):
+    branches = BranchSerializer(many=True, required=False)
+    contacts = ContactSerializer(many=True, required=False)
+    category = CategorySerializer()
+
     class Meta:
         model = Course
-        fields = ('id','title','description','category','logo', 'course_contacts','course_branches')
+        fields = ('title', 'description', 'category', 'logo', 'contacts', 'branches')
 
+    def create(self, validated_data):
+        print(validated_data)
+        category_data = validated_data.pop('category')
+        print(category_data)
+        contacts_data = validated_data.pop('contacts')
+        print(contacts_data)
+        branches_data = validated_data.pop('branches')
+        print(branches_data)
+        course = Course.objects.create(**validated_data)
+        for contact_data in contacts_data:
+            Contact.objects.create(**contact_data, course=course)
+        for branch_data in branches_data:
+            Branch.objects.create(**branch_data, course=course)
+        for cat in category_data:
+            c = cat[1]
 
-    @staticmethod
-    def get_contacts(self):
-        serializer = ContactSerializer(Contact.objects.all(), many=True)
-        return serializer.data
+            Category.objects.create(**cat, course_set=course)
+            Category.objects.name(**c)
+        return course
 
-    @staticmethod
-    def get_branches(self):
-        serializer = BranchSerializer(Branch.objects.all(), many=True)
-        return  serializer.data

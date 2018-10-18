@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Contact,Course,Branch,Category
+from .models import Contact, Course, Branch, Category
 # Register your models here.
 
 admin.site.register(Contact)
