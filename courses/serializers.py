@@ -10,7 +10,7 @@ class BranchSerializer(serializers.ModelSerializer):
 
 
 class ContactSerializer(serializers.ModelSerializer):
-    type = serializers.SerializerMethodField(required=False)
+    #type = serializers.SerializerMethodField()
 
     class Meta:
         model = Contact
@@ -41,21 +41,28 @@ class CourseSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         print(validated_data)
-        category_data = validated_data.pop('category')
-        print(category_data)
         contacts_data = validated_data.pop('contacts')
         print(contacts_data)
         branches_data = validated_data.pop('branches')
         print(branches_data)
-        course = Course.objects.create(**validated_data)
-        for contact_data in contacts_data:
-            Contact.objects.create(**contact_data, course=course)
-        for branch_data in branches_data:
-            Branch.objects.create(**branch_data, course=course)
-        for cat in category_data:
-            c = cat[1]
+        categ_data = validated_data.pop('category')
+        print(categ_data)
+        categ_value = categ_data['name']
+        print('categ_value: ' + categ_value)
 
-            Category.objects.create(**cat, course_set=course)
-            Category.objects.name(**c)
+
+        #categ = Category.courses.filter(name=categ_value)
+        #Course.objects.filter(category__name__startswith='John')
+        course = Course.objects.create(**validated_data, category=Category.objects.get(name=categ_value))
+        print(course)
+        for contact in contacts_data:
+            contact_type = contacts_data[0]
+            print('contact_type: ' + str(contact_type))
+            type1 = contact_type.pop('type')
+            print('type1: ' + str(type1))
+            # type2 = type1[0]
+            #print(type2)
+            Contact.objects.create(course=course, type=type1, **contact)
+        for branch in branches_data:
+            Branch.objects.create(course=course, **branch)
         return course
-

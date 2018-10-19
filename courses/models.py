@@ -41,7 +41,7 @@ class Contact(models.Model):
         (2, 'FACEBOOK'),
         (3, 'EMAIL'),
     )
-    type = models.IntegerField(choices=CONTACT_TYPE, null=True)
+    type = models.IntegerField(choices=CONTACT_TYPE, default=1)
     value = models.CharField(max_length=250)
     course = models.ForeignKey(Course, related_name='contacts', null=True, on_delete=models.CASCADE)
 
