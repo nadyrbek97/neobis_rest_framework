@@ -47,48 +47,89 @@ This is a test api documetation
             }
         ]
 
+
 ### Create a New Course [POST]
 
+    
 You may create your own question using this action. It takes a JSON
 object containing a question and a collection of answers in the
 form of choices.
-
 + Request (application/json)
 
-        {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
-        }
+            {
+                "title": "",
+                "description": "",
+                "category": {
+                    "name": ""
+                },
+                "logo": "",
+                "contacts": [
+                    {
+                        "type": 1,
+                        "value": ""
+                    },
+                    {
+                        "type": 2,
+                        "value": ""
+                    },
+                    {
+                        "type": 3,
+                        "value": ""
+                    }
+                ],
+                "branches": [
+                    {
+                        "latitude": "1221.1232",
+                        "longitude": "5464.4564",
+                        "address": "Bishkek Gorkiy str."
+                    },
+                    {
+                        "latitude": "2212.1223",
+                        "longitude": "3453.3453",
+                        "address": "Biskek Belinka str."
+                    }
+                ]
+            }
 
 + Response 201 (application/json)
 
     + Headers
-
+    
             Location: /courses/2
-
+            
     + Body
-
+    
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
+                "title": "English Zone",
+                "description": "This is English language course for students and pupils in Bishkek ...",
+                "category": {
+                    "name": "Language Course"
+                },
+                "logo": "english.zone.img",
+                "contacts": [
                     {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
+                        "type": 1,
+                        "value": "0555025045"
+                    },
+                    {
+                        "type": 2,
+                        "value": "english.zone"
+                    },
+                    {
+                        "type": 3,
+                        "value": "english.zone@example.com"
+                    }
+                ],
+                "branches": [
+                    {
+                        "latitude": "1221.1232",
+                        "longitude": "5464.4564",
+                        "address": "Bishkek Gorkiy str."
+                    },
+                    {
+                        "latitude": "2212.1223",
+                        "longitude": "3453.3453",
+                        "address": "Biskek Belinka str."
                     }
                 ]
             }
