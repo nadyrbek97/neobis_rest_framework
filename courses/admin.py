@@ -6,3 +6,7 @@ admin.site.register(Contact)
 admin.site.register(Course)
 admin.site.register(Branch)
 admin.site.register(Category)
+
+
+class ContactsInline(admin.StackedInline):
+    pass

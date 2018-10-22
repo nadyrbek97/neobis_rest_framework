@@ -4,7 +4,7 @@ from courses import views
 
 urlpatterns = [
     path('courses/', views.CourseList.as_view()),
-    path('courses/<int:pk>/', views.CourseDetail.as_view()),
+    path('courses/<int:pk>/', views.CourseDetail.as_view(), name='detail'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
