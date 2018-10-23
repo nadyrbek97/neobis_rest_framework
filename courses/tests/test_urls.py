@@ -1,7 +1,9 @@
 from django.urls import reverse, resolve
 from courses.models import *
+from django.test import TestCase
 
-class TestUrls:
+
+class TestUrls(TestCase):
 
     def test_detail_url(self):
         path = reverse('detail', kwargs={'pk': 1})
@@ -12,4 +14,4 @@ class TestUrls:
         contact = Contact.objects.get(pk=1)
         branch = Branch.objects.get(pk=1)
         course = Course.objects.create(title='judo', description='this is judo', category=cat, logo='judo.img', contact=contact, branch=branch)
-        assert course.name == "judo"
+        assert course.title == "judo"
