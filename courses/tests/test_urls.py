@@ -1,18 +1,23 @@
 from django.urls import reverse, resolve
 from courses.models import *
 from django.test import TestCase
+from rest_framework.test import APITestCase
 
 
-class TestUrls(TestCase):
+class TestCourse(TestCase):
 
     def test_detail_url(self):
         path = reverse('detail', kwargs={'pk': 1})
         assert resolve(path).view_name == "detail"
 
-    def test_create_fnc(self):
-        cat = Category.objects.get(pk=1)
-        contact = Contact.objects.get(pk=1)
-        branch = Branch.objects.get(pk=1)
-        course = Course.objects.create(title='judo', description='this is judo', category=cat, logo='judo.img', contact=contact, branch=branch)
-        assert course.title == "judo"
+    def test_create_course(self):
+        course = self.create_course()
+        course.contacts.create(type=1, value="0555025045")
+        course.branches.create(adress='Bishek', latitude='23.23.23', longitude='343.232')
+        self.assertTrue(isinstance(course, Course))
+
+
+class TestRestFramework(APITestCase):
+
+    pass
 
