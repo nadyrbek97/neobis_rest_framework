@@ -15,3 +15,4 @@ class TestUrls(TestCase):
         branch = Branch.objects.get(pk=1)
         course = Course.objects.create(title='judo', description='this is judo', category=cat, logo='judo.img', contact=contact, branch=branch)
         assert course.title == "judo"
+
