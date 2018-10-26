@@ -11,9 +11,9 @@ class TestCourse(TestCase):
         assert resolve(path).view_name == "detail"
 
     def test_create_course(self):
-        course = self.create_course()
+        course = Course.objects.create()
         course.contacts.create(type=1, value="0555025045")
-        course.branches.create(adress='Bishek', latitude='23.23.23', longitude='343.232')
+        course.branches.create(address='Bishek', latitude='23.23.23', longitude='343.232')
         self.assertTrue(isinstance(course, Course))
 
 
