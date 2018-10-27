@@ -54,46 +54,15 @@ This is a test api documetation
 You may create your own question using this action. It takes a JSON
 object containing a question and a collection of answers in the
 form of choices.
-+ Request (application/json)
-
-            {
-                "title": "English Zone",
-                "description": "This is English Zone",
-                "category": {
-                    "name": "Language Courses"
-                    "image_path": "eng.img"
-                },
-                "logo": "lan.img",
-                "contacts": [
-                    {
-                        "type": 1,
-                        "value": "0555025045"
-                    },
-                    {
-                        "type": 2,
-                        "value": "english.zone"
-                    },
-                    {
-                        "type": 3,
-                        "value": "english.zone@gmail.com"
-                    }
-                ],
-                "branches": [
-                    {
-                        "latitude": "1221.1232",
-                        "longitude": "5464.4564",
-                        "address": "Bishkek Gorkiy str."
-                    },
-                    {
-                        "latitude": "2212.1223",
-                        "longitude": "3453.3453",
-                        "address": "Biskek Belinka str."
-                    }
-                ]
-            }
 
 + Response 201 (application/json)
 
+    + Choices for Contact Type
+        
+        1 : "PHONE"
+        2 : "FACEBOOK"
+        3 : "EMAIL"
+    
     + Headers
     
             Location: /courses/2
@@ -101,5 +70,24 @@ form of choices.
     + Body
     
             {
-              it will redirected to course/
+                "title": "Judo0001",
+                "description": "asfja;sfd",
+                "category": {
+                    "name": "Sport",
+                    "image_path": "tes.img"
+                },
+                "logo": "tes.img",
+                "contacts": [
+            {
+                            "type": 1,
+                            "value": "0312511642"
+                        }
+            ],
+                "branches": [
+            {
+                            "latitude": "1221.1232",
+                            "longitude": "5464.4564",
+                            "address": "Biskek Ankara"
+                        }
+                    ]
             }
