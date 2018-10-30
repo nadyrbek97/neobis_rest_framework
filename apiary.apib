@@ -55,6 +55,31 @@ You may create your own question using this action. It takes a JSON
 object containing a question and a collection of answers in the
 form of choices.
 
++ Request (application/json)
+
+        {
+                "title": "",
+                "description": "",
+                "category": {
+                    "name": "",
+                    "image_path": ""
+                },
+                "logo": "",
+                "contacts": [
+            {
+                            "type": 1,
+                            "value": ""
+                        }
+            ],
+                "branches": [
+            {
+                            "latitude": "",
+                            "longitude": "",
+                            "address": ""
+                        }
+                    ]
+            }
+
 + Response 201 (application/json)
 
     + Choices for Contact Type
