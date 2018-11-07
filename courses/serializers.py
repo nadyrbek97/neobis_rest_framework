@@ -20,18 +20,16 @@ class ContactSerializer(serializers.ModelSerializer):
 
 
 class CategorySerializer(serializers.ModelSerializer):
-    name = serializers.CharField(max_length=200)
-    image_path = serializers.CharField(max_length=100, required=False)
 
     class Meta:
         model = Category
-        fields = ('name', 'image_path')
+        fields = ('id', 'name')
 
 
 class CourseSerializer(serializers.ModelSerializer):
     branches = BranchSerializer(many=True, required=False)
     contacts = ContactSerializer(many=True, required=False)
-    category = CategorySerializer()
+    category = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
         model = Course
